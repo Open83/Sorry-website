@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0,
+               viewport-fit=cover">
+<meta name="theme-color" content="#17131c">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<title>For Sara — I'm Sorry</title>
+
+<style>
+/* =========================================================
+   RESET
+========================================================= */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at 15% 10%, rgba(236, 176, 187, .16), transparent 28%),
+        radial-gradient(circle at 85% 30%, rgba(186, 154, 190, .12), transparent 30%),
+        #f8f3ee;
+    color: #211b22;
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        "SF Pro Text",
+        Inter,
+        system-ui,
+        sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+}
+
+button {
+    font: inherit;
+}
+
+a {
+    color: inherit;
+}
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+:root {
+    --ink: #211b22;
+    --muted: #756a72;
+    --cream: #f8f3ee;
+    --paper: rgba(255,255,255,.72);
+    --rose: #d98d9c;
+    --rose-dark: #9e5668;
+    --plum: #4a3045;
+    --line: rgba(55, 38, 50, .10);
+    --shadow:
+        0 24px 70px rgba(48, 31, 43, .11);
+}
+
+/* =========================================================
+   INTRO OVERLAY
+========================================================= */
+
+.intro {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+    background:
+        radial-gradient(circle at 50% 35%, #fff8f6 0%, #f4e9e7 42%, #ded0d5 100%);
+    transition:
+        opacity .8s ease,
+        visibility .8s ease;
+}
+
+.intro.hide {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.intro-card {
+    width: min(100%, 440px);
+    text-align: center;
+}
+
+.intro-penguin {
+    width: 140px;
+    margin: 0 auto 26px;
+    animation: float 3.5s ease-in-out infinite;
+}
+
+.intro-eyebrow {
+    margin: 0 0 10px;
+    color: var(--rose-dark);
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+}
+
+.intro h1 {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(2.5rem, 10vw, 4.6rem);
+    font-weight: 500;
+    letter-spacing: -.045em;
+    line-height: .95;
+}
+
+.intro p {
+    max-width: 330px;
+    margin: 20px auto 28px;
+    color: var(--muted);
+    font-size: .98rem;
+    line-height: 1.7;
+}
+
+.enter-btn {
+    border: 0;
+    padding: 15px 24px;
+    border-radius: 999px;
+    background: var(--ink);
+    color: white;
+    font-weight: 700;
+    letter-spacing: .01em;
+    box-shadow: 0 14px 35px rgba(33, 27, 34, .18);
+    cursor: pointer;
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.enter-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 18px 42px rgba(33, 27, 34, .25);
+}
+
+/* =========================================================
+   PENGUIN CSS CHARACTER
+========================================================= */
+
+.penguin {
+    position: relative;
+    width: 110px;
+    height: 135px;
+    margin: auto;
+}
+
+.penguin .body {
+    position: absolute;
+    left: 12%;
+    bottom: 0;
+    width: 76%;
+    height: 82%;
+    border-radius: 48% 48% 42% 42%;
+    background: #1d1c21;
+    box-shadow: inset -7px -8px 0 rgba(0,0,0,.08);
+}
+
+.penguin .belly {
+    position: absolute;
+    left: 26%;
+    bottom: 7%;
+    width: 48%;
+    height: 55%;
+    border-radius: 50%;
+    background: #fffaf6;
+}
+
+.penguin .eye {
+    position: absolute;
+    top: 23%;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: white;
+    z-index: 3;
+}
+
+.penguin .eye::after {
+    content: "";
+    position: absolute;
+    inset: 2px;
+    border-radius: 50%;
+    background: #161419;
+}
+
+.penguin .eye.left {
+    left: 29%;
+}
+
+.penguin .eye.right {
+    right: 29%;
+}
+
+.penguin .beak {
+    position: absolute;
+    top: 31%;
+    left: 43%;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 12px solid #e5a55d;
+    z-index: 4;
+}
+
+.penguin .wing {
+    position: absolute;
+    top: 47%;
+    width: 32%;
+    height: 38%;
+    background: #17161b;
+    border-radius: 70%;
+}
+
+.penguin .wing.left {
+    left: -1%;
+    transform: rotate(24deg);
+}
+
+.penguin .wing.right {
+    right: -1%;
+    transform: rotate(-24deg);
+}
+
+.penguin .foot {
+    position: absolute;
+    bottom: -2px;
+    width: 35px;
+    height: 12px;
+    border-radius: 50%;
+    background: #e4a25d;
+}
+
+.penguin .foot.left {
+    left: 12%;
+}
+
+.penguin .foot.right {
+    right: 12%;
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    padding:
+        max(70px, env(safe-area-inset-top))
+        22px
+        60px;
+    overflow: hidden;
+}
+
+.hero-inner {
+    width: min(100%, 780px);
+    margin: auto;
+    text-align: center;
+}
+
+.hero-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 18px;
+    color: var(--rose-dark);
+    font-size: .72rem;
+    font-weight: 800;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+}
+
+.hero h2 {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(3.1rem, 14vw, 7.5rem);
+    font-weight: 500;
+    letter-spacing: -.065em;
+    line-height: .88;
+}
+
+.hero h2 span {
+    color: var(--rose-dark);
+}
+
+.hero-subtitle {
+    max-width: 520px;
+    margin: 28px auto 0;
+    color: var(--muted);
+    font-size: clamp(1rem, 3.5vw, 1.2rem);
+    line-height: 1.8;
+}
+
+.scroll-hint {
+    margin-top: 55px;
+    color: #91858d;
+    font-size: .72rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+}
+
+/* =========================================================
+   DECORATIVE HEARTS
+========================================================= */
+
+.heart {
+    position: absolute;
+    opacity: .45;
+    user-select: none;
+    pointer-events: none;
+    animation: drift 6s ease-in-out infinite;
+}
+
+.heart.one {
+    top: 13%;
+    left: 8%;
+    font-size: 22px;
+}
+
+.heart.two {
+    top: 28%;
+    right: 9%;
+    font-size: 16px;
+    animation-delay: -2s;
+}
+
+.heart.three {
+    bottom: 18%;
+    left: 15%;
+    font-size: 14px;
+    animation-delay: -4s;
+}
+
+/* =========================================================
+   SECTIONS
+========================================================= */
+
+.section {
+    position: relative;
+    width: min(100%, 900px);
+    margin: 0 auto;
+    padding: 95px 22px;
+}
+
+.section-label {
+    margin-bottom: 14px;
+    color: var(--rose-dark);
+    font-size: .7rem;
+    font-weight: 800;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+}
+
+.section-title {
+    margin: 0 0 25px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(2.2rem, 8vw, 4.5rem);
+    font-weight: 500;
+    letter-spacing: -.045em;
+    line-height: 1;
+}
+
+.body-copy {
+    max-width: 680px;
+    color: var(--muted);
+    font-size: 1rem;
+    line-height: 1.9;
+}
+
+/* =========================================================
+   APOLOGY CARD
+========================================================= */
+
+.apology-card {
+    position: relative;
+    margin-top: 35px;
+    padding: 32px 24px;
+    border: 1px solid var(--line);
+    border-radius: 30px;
+    background: var(--paper);
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+.apology-card p {
+    margin: 0 0 18px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(1.15rem, 4vw, 1.45rem);
+    line-height: 1.7;
+}
+
+.signature {
+    margin-top: 28px;
+    color: var(--rose-dark);
+    font-family: "Brush Script MT", cursive;
+    font-size: 1.7rem;
+}
+
+/* =========================================================
+   PROMISE GRID
+========================================================= */
+
+.promise-grid {
+    display: grid;
+    gap: 14px;
+    margin-top: 35px;
+}
+
+.promise {
+    position: relative;
+    padding: 23px;
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    background: rgba(255,255,255,.55);
+    transition: transform .3s ease, background .3s ease;
+}
+
+.promise:hover {
+    transform: translateY(-3px);
+    background: rgba(255,255,255,.8);
+}
+
+.promise-number {
+    display: block;
+    margin-bottom: 12px;
+    color: var(--rose-dark);
+    font-size: .68rem;
+    font-weight: 800;
+    letter-spacing: .15em;
+}
+
+.promise h3 {
+    margin: 0 0 7px;
+    font-size: 1rem;
+}
+
+.promise p {
+    margin: 0;
+    color: var(--muted);
+    font-size: .9rem;
+    line-height: 1.65;
+}
+
+/* =========================================================
+   VOICE NOTE
+========================================================= */
+
+.voice-section {
+    padding-bottom: 110px;
+}
+
+.voice-card {
+    position: relative;
+    overflow: hidden;
+    padding: 32px 24px 28px;
+    border-radius: 32px;
+    background:
+        linear-gradient(145deg, #30232f, #17131c);
+    color: white;
+    box-shadow: 0 30px 80px rgba(29, 20, 30, .25);
+}
+
+.voice-card::before {
+    content: "";
+    position: absolute;
+    width: 220px;
+    height: 220px;
+    right: -80px;
+    top: -80px;
+    border-radius: 50%;
+    background: rgba(217,141,156,.18);
+}
+
+.voice-top {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    position: relative;
+    z-index: 2;
+}
+
+.mini-penguin {
+    flex: 0 0 auto;
+    transform: scale(.58);
+    transform-origin: left center;
+    width: 65px;
+    margin-right: -28px;
+}
+
+.voice-label {
+    color: #d9a7b2;
+    font-size: .68rem;
+    font-weight: 800;
+    letter-spacing: .17em;
+    text-transform: uppercase;
+}
+
+.voice-title {
+    margin: 5px 0 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 1.65rem;
+    font-weight: 500;
+}
+
+.voice-description {
+    position: relative;
+    z-index: 2;
+    margin: 24px 0;
+    color: rgba(255,255,255,.68);
+    font-size: .9rem;
+    line-height: 1.7;
+}
+
+.audio-shell {
+    position: relative;
+    z-index: 2;
+    padding: 14px;
+    border: 1px solid rgba(255,255,255,.10);
+    border-radius: 20px;
+    background: rgba(255,255,255,.06);
+}
+
+.audio-shell audio {
+    width: 100%;
+    height: 44px;
+}
+
+.audio-note {
+    margin: 12px 3px 0;
+    color: rgba(255,255,255,.45);
+    font-size: .72rem;
+}
+
+/* =========================================================
+   FINAL
+========================================================= */
+
+.final {
+    min-height: 90svh;
+    display: grid;
+    place-items: center;
+    padding:
+        80px 22px
+        max(80px, env(safe-area-inset-bottom));
+    text-align: center;
+}
+
+.final-inner {
+    width: min(100%, 560px);
+}
+
+.final-penguin {
+    width: 130px;
+    margin-bottom: 30px;
+    animation: float 4s ease-in-out infinite;
+}
+
+.final h2 {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(2.6rem, 11vw, 5.5rem);
+    font-weight: 500;
+    letter-spacing: -.06em;
+    line-height: .95;
+}
+
+.final h2 span {
+    color: var(--rose-dark);
+}
+
+.final p {
+    margin: 25px auto 0;
+    color: var(--muted);
+    font-size: .95rem;
+    line-height: 1.8;
+}
+
+.final-question {
+    margin-top: 35px;
+    padding: 17px 20px;
+    border-radius: 999px;
+    background: rgba(255,255,255,.65);
+    border: 1px solid var(--line);
+    color: var(--plum);
+    font-weight: 700;
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer {
+    padding: 25px 22px 45px;
+    text-align: center;
+    color: #9a8d95;
+    font-size: .68rem;
+    letter-spacing: .08em;
+}
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0) rotate(-1deg);
+    }
+
+    50% {
+        transform: translateY(-9px) rotate(1deg);
+    }
+}
+
+@keyframes drift {
+    0%, 100% {
+        transform: translateY(0) rotate(-4deg);
+    }
+
+    50% {
+        transform: translateY(-13px) rotate(5deg);
+    }
+}
+
+.reveal {
+    opacity: 0;
+    transform: translateY(25px);
+    transition:
+        opacity .8s ease,
+        transform .8s ease;
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* =========================================================
+   DESKTOP
+========================================================= */
+
+@media (min-width: 700px) {
+
+    .section {
+        padding-top: 130px;
+        padding-bottom: 130px;
+    }
+
+    .apology-card {
+        padding: 50px;
+    }
+
+    .promise-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .promise {
+        min-height: 210px;
+    }
+
+    .voice-card {
+        padding: 48px;
+    }
+
+    .voice-description {
+        max-width: 600px;
+    }
+}
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =======================================================
+     INTRO
+======================================================= -->
+
+<div class="intro" id="intro">
+
+    <div class="intro-card">
+
+        <div class="intro-penguin">
+            <div class="penguin">
+                <div class="body"></div>
+                <div class="belly"></div>
+                <div class="eye left"></div>
+                <div class="eye right"></div>
+                <div class="beak"></div>
+                <div class="wing left"></div>
+                <div class="wing right"></div>
+                <div class="foot left"></div>
+                <div class="foot right"></div>
+            </div>
+        </div>
+
+        <p class="intro-eyebrow">A tiny thing I made for you</p>
+
+        <h1>Sara.</h1>
+
+        <p>
+            I could have just typed “sorry”.
+            But you asked me to apologise properly.
+            So… I made you something instead.
+        </p>
+
+        <button class="enter-btn" id="enterBtn">
+            Open this ❤️
+        </button>
+
+    </div>
+
+</div>
+
+
+<main>
+
+<!-- =======================================================
+     HERO
+======================================================= -->
+
+<section class="hero">
+
+    <span class="heart one">♡</span>
+    <span class="heart two">♡</span>
+    <span class="heart three">♡</span>
+
+    <div class="hero-inner reveal">
+
+        <div class="hero-kicker">
+            <span>🐧</span>
+            <span>from someone who messed up</span>
+        </div>
+
+        <h2>
+            I'm<br>
+            <span>sorry.</span>
+        </h2>
+
+        <p class="hero-subtitle">
+            Not the quick “sorry” you type and send.
+            The proper one you asked me for.
+        </p>
+
+        <div class="scroll-hint">
+            ↓ keep going
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     APOLOGY
+======================================================= -->
+
+<section class="section reveal">
+
+    <div class="section-label">
+        01 / What I actually mean
+    </div>
+
+    <h2 class="section-title">
+        No excuses.<br>
+        Just me.
+    </h2>
+
+    <p class="body-copy">
+        I know saying sorry doesn't magically undo a mistake.
+        And I'm not going to make excuses or try to make you
+        feel bad for being upset.
+    </p>
+
+    <div class="apology-card">
+
+        <p>
+            “I'm genuinely sorry for what I did.
+            I know I could have handled it better,
+            and you deserved better from me in that moment.”
+        </p>
+
+        <p>
+            “You don't have to instantly stop being angry
+            just because I'm apologising.
+            I just wanted you to know that I understand
+            I messed up.”
+        </p>
+
+        <p>
+            “And yes… I could have sent you a paragraph.
+            But apparently tonight I decided to build
+            an entire website instead. 😭”
+        </p>
+
+        <div class="signature">
+            — Tumhara Shohar
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     PROMISES
+======================================================= -->
+
+<section class="section reveal">
+
+    <div class="section-label">
+        02 / What matters after sorry
+    </div>
+
+    <h2 class="section-title">
+        Sorry is easy.<br>
+        Doing better isn't.
+    </h2>
+
+    <p class="body-copy">
+        So instead of making dramatic promises I can't guarantee,
+        these are the things I actually want to do better.
+    </p>
+
+    <div class="promise-grid">
+
+        <article class="promise">
+            <span class="promise-number">01</span>
+            <h3>Listen properly.</h3>
+            <p>
+                Not just wait for my turn to speak.
+                Actually listen to what you're trying to tell me.
+            </p>
+        </article>
+
+        <article class="promise">
+            <span class="promise-number">02</span>
+            <h3>Think before reacting.</h3>
+            <p>
+                Especially when something can hurt you.
+                A few seconds of thought can save a lot of damage.
+            </p>
+        </article>
+
+        <article class="promise">
+            <span class="promise-number">03</span>
+            <h3>Show it through actions.</h3>
+            <p>
+                Because eventually “I'm sorry” means nothing
+                if the behaviour never changes.
+            </p>
+        </article>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     VOICE NOTE
+======================================================= -->
+
+<section class="section voice-section reveal">
+
+    <div class="section-label">
+        03 / Something I wanted you to hear
+    </div>
+
+    <h2 class="section-title">
+        Don't read this one.
+    </h2>
+
+    <p class="body-copy">
+        I wanted you to hear my voice instead.
+        So I recorded something specifically for you.
+    </p>
+
+    <div class="voice-card">
+
+        <div class="voice-top">
+
+            <div class="mini-penguin">
+                <div class="penguin">
+                    <div class="body"></div>
+                    <div class="belly"></div>
+                    <div class="eye left"></div>
+                    <div class="eye right"></div>
+                    <div class="beak"></div>
+                    <div class="wing left"></div>
+                    <div class="wing right"></div>
+                    <div class="foot left"></div>
+                    <div class="foot right"></div>
+                </div>
+            </div>
+
+            <div>
+                <div class="voice-label">
+                    Private voice note
+                </div>
+
+                <div class="voice-title">
+                    Press play when you're ready.
+                </div>
+            </div>
+
+        </div>
+
+        <p class="voice-description">
+            No AI voice. No generated speech.
+            Just me, talking to you.
+        </p>
+
+        <div class="audio-shell">
+
+            <audio controls preload="metadata">
+                <source
+                    src="voice-note.m4a"
+                    type="audio/mp4">
+                
+                Your browser doesn't support this audio.
+                <a href="voice-note.m4a">
+                    Listen to the voice note
+                </a>
+            </audio>
+
+            <div class="audio-note">
+                🎧 Headphones recommended.
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     FINAL
+======================================================= -->
+
+<section class="final reveal">
+
+    <div class="final-inner">
+
+        <div class="final-penguin">
+
+            <div class="penguin">
+                <div class="body"></div>
+                <div class="belly"></div>
+                <div class="eye left"></div>
+                <div class="eye right"></div>
+                <div class="beak"></div>
+                <div class="wing left"></div>
+                <div class="wing right"></div>
+                <div class="foot left"></div>
+                <div class="foot right"></div>
+            </div>
+
+        </div>
+
+        <h2>
+            Still<br>
+            <span>sorry.</span>
+        </h2>
+
+        <p>
+            I can't change what already happened.
+            But I can choose how I behave after it.
+        </p>
+
+        <div class="final-question">
+            So… can this penguin stop being in trouble? 🐧🥺
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<footer>
+    Made at an unreasonable hour with questionable amounts of love.
+    ❤️
+</footer>
+
+
+<script>
+
+/* =========================================================
+   INTRO
+========================================================= */
+
+const intro = document.getElementById("intro");
+const enterBtn = document.getElementById("enterBtn");
+
+enterBtn.addEventListener("click", () => {
+
+    intro.classList.add("hide");
+
+    setTimeout(() => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }, 200);
+
+});
+
+
+/* =========================================================
+   REVEAL ON SCROLL
+========================================================= */
+
+const revealItems = document.querySelectorAll(".reveal");
+
+const observer = new IntersectionObserver(
+    entries => {
+
+        entries.forEach(entry => {
+
+            if (entry.isIntersecting) {
+
+                entry.target.classList.add("visible");
+
+                observer.unobserve(entry.target);
+
+            }
+
+        });
+
+    },
+    {
+        threshold: 0.12
+    }
+);
+
+revealItems.forEach(item => {
+    observer.observe(item);
+});
+
+
+/* =========================================================
+   AUDIO ERROR HANDLING
+========================================================= */
+
+const audio = document.querySelector("audio");
+
+audio.addEventListener("error", () => {
+
+    console.warn(
+        "Voice note could not be loaded. Check assets/voice-note.m4a"
+    );
+
+});
+
+</script>
+
+</body>
+</html>
